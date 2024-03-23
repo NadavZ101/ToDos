@@ -1,0 +1,36 @@
+.todo-preview {
+    /* display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+    min-height: 20px; */
+}
+
+/* .todo-preview:hover {
+    cursor: pointer;
+    background-color: #f4f4f4;
+    scale: 1.02;
+    cursor: pointer;
+
+    box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+} */
+
+.todo-preview .complete {
+    text-decoration: line-through;
+}
+
+.todo-preview p {
+    flex-grow: 1;
+    margin: 0 10px;
+    min-width: 100px;
+}
+
+@media (max-width: 700px) {
+    .todo-preview button {
+        padding: 5px;
+        font-size: 12px;
+    }
+}

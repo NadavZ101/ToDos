@@ -1,0 +1,27 @@
+html,
+body {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+button {
+    cursor: pointer;
+}
+
+.app {
+    width: calc(100% - 10px);
+    min-height: 100%;
+    margin: 5px auto;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}

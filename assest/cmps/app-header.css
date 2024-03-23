@@ -1,0 +1,15 @@
+.app-header {
+    background-color: rgb(200, 241, 129);
+    padding-block: 1em;
+}
+
+.app-nav {
+    display: flex;
+    gap: 15px;
+}
+
+@media(max-width: 720px) {
+    .app-header {
+        color: rgb(241, 129, 129)
+    }
+}
