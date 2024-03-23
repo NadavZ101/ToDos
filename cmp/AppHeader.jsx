@@ -8,6 +8,8 @@ import { logout } from '../store/actions/user.actions.js'
 
 export function AppHeader() {
     const user = useSelector(storeState => storeState.loggedInUser)
+    const todos = useSelector(storeState => storeState.todos)
+
     console.log(user)
 
     function onLogout() {
@@ -18,6 +20,13 @@ export function AppHeader() {
             .catch(err => {
                 showErrorMsg('Cannot logout')
             })
+    }
+
+    function completionPrecent() {
+        const totalTodos = todos.length
+        const completedTodos = todos.filter(todo => todo.status === 'complete')
+        const completedPrecent = totalTodos > 0 ? (completedTodos.length / totalTodos) * 100 : 0
+        return completedPrecent
     }
 
     return (
@@ -34,6 +43,11 @@ export function AppHeader() {
             {user ? (
                 <section>
                     <span to={`/user/${user.username}`}>Hello {user.fullname}</span>
+                    <div className="progress-bar-container">
+                        <div className="progress-bar" value={completionPrecent()} max="100" style={{ width: `${completionPrecent()}%` }}>
+                            {completionPrecent().toFixed(0)}%
+                        </div>
+                    </div>
                     <button className="btn" onClick={onLogout}>Logout</button>
                 </section>
 

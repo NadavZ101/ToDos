@@ -24,7 +24,7 @@ export function TodoDetails() {
             <p>Title: {todo.title}</p>
             <p>status: {todo.status}</p>
             <p>Created At: {todo.createdAt}</p>
-            <p>Created By: {todo.createdBy}</p>
+            <p>Created By: {todo.createBy}</p>
         </section>
 
         // <section className="todo-details flex column">

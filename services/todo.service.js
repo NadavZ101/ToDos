@@ -1,4 +1,5 @@
 import { storageService } from './async-storage.service.js'
+import { userService } from './user.service.js'
 import { utilService } from './util.service.js'
 
 const STORAGE_KEY = 'todoDB'
@@ -30,6 +31,8 @@ function save(todo) {
         console.log('service - id - after ', todo._id)
 
         todo.title = todo.title
+        todo.createBy = userService.getLoggedInUser()
+        console.log('service -> edit Todo: ', todo)
         return storageService.put(STORAGE_KEY, todo)
 
     } else {
@@ -38,7 +41,9 @@ function save(todo) {
         todo.title = todo.title
         todo.status = 'active'
         todo.createdAt = new Date()
-        //add createdBy
+        todo.createBy = userService.getLoggedInUser().username
+
+        console.log('service -> save new Todo: ', todo)
         return storageService.post(STORAGE_KEY, todo)
     }
 }
@@ -61,7 +66,7 @@ function getTodoById(todoId) {
 
 
 function getEmptyTodo() {
-    return { _id: '', title: '', status: '', createdAt: '' }
+    return { _id: '', title: '', status: '', createdAt: '', }
     // Add CreatedBy
 }
 
@@ -72,10 +77,10 @@ function _createTodos() {
     let todos = utilService.loadFromStorage(STORAGE_KEY)
     if (!todos || !todos.length) {
         todos = []
-        todos.push(_createTask('Walk out the dog'))
-        todos.push(_createTask('Buy Milk'))
-        todos.push(_createTask('Bring the mail'))
-        todos.push(_createTask('Cook Dinner'))
+        todos.push(_createTask('Walk out the dog', 'Booloon'))
+        todos.push(_createTask('Buy Milk', 'Booloon'))
+        todos.push(_createTask('Bring the mail', 'Booloon'))
+        todos.push(_createTask('Cook Dinner', 'Booloon'))
     }
 
     utilService.saveToStorage(STORAGE_KEY, todos)
@@ -83,13 +88,13 @@ function _createTodos() {
 }
 
 //* Model
-function _createTask(title, desc) {
+function _createTask(title, username) {
     const todo = {
         _id: utilService.makeId(),
         title: title || utilService.makeLorem(5),
         status: 'active',
-        createdAt: new Date()
-        // createBy: '',
+        createdAt: new Date(),
+        createBy: username || '',
     }
 
     return todo
