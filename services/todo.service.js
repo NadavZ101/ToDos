@@ -4,6 +4,8 @@ import { utilService } from './util.service.js'
 
 const STORAGE_KEY = 'todoDB'
 
+const PAGE_SIZE = 6
+
 export const todoService = {
     query,
     remove,
@@ -33,6 +35,11 @@ function query(filterBy = {}, sortBy = {}) {
 
             if (filterBy.status === 'complete') {
                 todos = todos.filter(todo => todo.status === filterBy.status)
+            }
+
+            if (filterBy.pageIdx !== undefined) {
+                const startIdx = filterBy.pageIdx * PAGE_SIZE
+                todos = todos.slice(startIdx, PAGE_SIZE + startIdx)
             }
 
             if (sortBy.type === 'title') {
@@ -108,7 +115,7 @@ function getEmptyTodo() {
 }
 
 function getDefaultFilterBy() {
-    return { status: '', txt: '' }
+    return { status: '', txt: '', pageIdx: 0 }
 }
 
 function getDefaultSortBy() {

@@ -15,34 +15,47 @@ export function TodoFilter({ filterBy, onSetFilter }) {
 
     function handleSelect({ target }) {
         const field = target.name
-        const value = target.value
+        const value = target.type === 'number' ? +target.value : target.value
         setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, [field]: value }))
     }
 
     function handleSubmit(ev) {
         ev.preventDefault()
-        console.log('HANDELLLLL')
         onSetFilter(filterByToEdit)
     }
 
     // onSubmit={handleSubmit}
 
     // const { status } = filterByToEdit
-    return <form className="filter-form" >
-        <input
-            type="text"
-            name="txt"
-            id="txt"
-            value={filterByToEdit.txt}
-            onChange={handleSelect}
-            placeholder="Search Text"
-        />
+    return <div className="filter-container">
+        <h3>Filter</h3>
+        <form className="filter-form" >
+            <span className="filter-span">By Title:</span>
+            <input
+                type="text"
+                name="txt"
+                id="txt"
+                value={filterByToEdit.txt}
+                onChange={handleSelect}
+                placeholder="Search Text"
+            />
 
-        <select className="filter-list" name="status" value={filterByToEdit.status} onChange={handleSelect}>
-            <option value="all">All</option>
-            <option value="active">Active</option>
-            <option value="complete">Complete</option>
-        </select>
-        <button className="filter-btn" type="submit">Filter</button>
-    </form>
+            <span className="filter-span">By Status:</span>
+            <select className="filter-list" name="status" value={filterByToEdit.status} onChange={handleSelect}>
+                <option value="all">All</option>
+                <option value="active">Active</option>
+                <option value="complete">Complete</option>
+            </select>
+
+            <label htmlFor="pageIdx">Page:</label>
+            <input
+                type="number"
+                id="pageIdx"
+                name="pageIdx"
+                value={filterBy.pageIdx}
+                onChange={handleSelect}
+                placeholder="0"
+            />
+        </form>
+    </div>
 }
