@@ -18,26 +18,29 @@ export function TodoSort({ sortBy, onSetSort }) {
             setSortByToEdit(prevSort => ({ ...prevSort, [field]: value }))
     }
 
-    return <form className="todo-sort">
-        <select
-            className="sort-type"
-            name="type"
-            value={sortByToEdit.type}
-            onChange={handleChange}
-        >
-            <option value={''}>----</option>
-            <option value='title'>Title</option>
-            <option value='createAt'>Date</option>
-            <option value='status'>Status</option>
-        </select>
-        <label htmlFor="desc">
-            <input
-                type="checkbox"
-                name="desc"
-                checked={sortByToEdit.desc > 0}
+    return <div className="sort-container">
+        <h3>Sort</h3>
+        <form className="todo-sort">
+            <select
+                className="sort-type"
+                name="type"
+                value={sortByToEdit.type}
                 onChange={handleChange}
-            />
-            Descending
-        </label>
-    </form>
+            >
+                <option value={''}>----</option>
+                <option value='title'>Title</option>
+                <option value='createAt'>Date</option>
+                <option value='status'>Status</option>
+            </select>
+            <label htmlFor="desc">
+                <input
+                    type="checkbox"
+                    name="desc"
+                    checked={sortByToEdit.desc > 0}
+                    onChange={handleChange}
+                />
+                Descending
+            </label>
+        </form>
+    </div>
 }

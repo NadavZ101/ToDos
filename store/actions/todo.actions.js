@@ -1,6 +1,6 @@
 import { todoService } from "../../services/todo.service.js"
 
-import { SET_TODOS, REMOVE_TODO, ADD_TODO, LOAD_TODO, UPDATE_TODO, SET_FILTER_BY, SET_SORT_BY } from "../reducers/todo.reducer.js"
+import { SET_TODOS, REMOVE_TODO, ADD_TODO, LOAD_TODO, UPDATE_TODO, SET_FILTER_BY, SET_SORT_BY, SET_IS_LOADING } from "../reducers/todo.reducer.js"
 
 import { store } from "../store.js"
 
@@ -9,7 +9,7 @@ export function loadTodos() {
     const filterBy = store.getState().todoModule.filterBy
     const sortBy = store.getState().todoModule.sortBy
 
-    console.log('Todos actions --> sortBy', sortBy)
+    store.dispatch({ type: SET_IS_LOADING, isLoading: true })
 
     return todoService.query(filterBy, sortBy)
         .then(todos => {
@@ -19,6 +19,9 @@ export function loadTodos() {
         .catch(err => {
             console.log('Todos actions -> Cannot Load Todos')
             throw err
+        })
+        .finally(() => {
+            store.dispatch({ type: SET_IS_LOADING, isLoading: false })
         })
 }
 

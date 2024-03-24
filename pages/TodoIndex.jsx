@@ -9,7 +9,7 @@ import { TodoFilter } from "../cmp/TodoFilter.jsx"
 import { TodoSort } from "../cmp/TodoSort.jsx"
 import { TodoList } from "../cmp/TodoList.jsx"
 
-import { loadTodos, removeTodo, saveTodo, setFilterBy, setSortBy } from "../store/actions/todo.actions.js"
+import { loadTodos, removeTodo, saveTodo, setFilterBy, setSortBy, isLoading } from "../store/actions/todo.actions.js"
 
 
 export function TodoApp() {
@@ -18,6 +18,7 @@ export function TodoApp() {
     const todos = useSelector(storeState => storeState.todoModule.todos)
     const filterBy = useSelector(storeState => storeState.todoModule.filterBy)
     const sortBy = useSelector(storeState => storeState.todoModule.sortBy)
+    const isLoading = useSelector(storeState => storeState.todoModule.isLoading)
 
     useEffect(() => {
         loadTodos()
@@ -63,7 +64,7 @@ export function TodoApp() {
         setSortBy(sortBy)
     }
 
-
+    if (!todos) return <div>Loading...</div>
     return <div>
         <h3>What Need To Be Done?</h3>
         <main>
@@ -72,7 +73,8 @@ export function TodoApp() {
 
             <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onStatusTodo={onStatusTodo} />
 
-            {/* <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onAddTodo={onAddTodo} onStatusTodo={onStatusTodo} onEditTodo={onEditTodo} /> */}
+            {(!todos.length) && <div>No todos to show...</div>}
+
         </main>
     </div>
 }

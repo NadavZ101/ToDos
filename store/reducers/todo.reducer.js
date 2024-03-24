@@ -13,11 +13,15 @@ export const SET_FILTER_BY = 'SET_FILTER_BY'
 //* Sort
 export const SET_SORT_BY = 'SET_SORT_BY'
 
+//* Loading
+export const SET_IS_LOADING = 'SET_IS_LOADING'
+
 const initialState = {
     todos: [],
     // todo: {},
     filterBy: todoService.getDefaultFilterBy(),
-    sortBy: todoService.getDefaultSortBy()
+    sortBy: todoService.getDefaultSortBy(),
+    isLoading: false
 }
 
 export function todoReducer(state = initialState, action = {}) {
@@ -65,6 +69,13 @@ export function todoReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 sortBy: { ...state.sortBy, ...action.sortBy }
+            }
+
+        //* Loading
+        case SET_IS_LOADING:
+            return {
+                ...state,
+                isLoading: action.isLoading
             }
 
         default:
