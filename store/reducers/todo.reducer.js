@@ -10,10 +10,14 @@ export const UPDATE_TODO = 'UPDATE_TODO'
 //* Filter
 export const SET_FILTER_BY = 'SET_FILTER_BY'
 
+//* Sort
+export const SET_SORT_BY = 'SET_SORT_BY'
+
 const initialState = {
     todos: [],
     // todo: {},
-    filterBy: todoService.getDefaultFilterBy()
+    filterBy: todoService.getDefaultFilterBy(),
+    sortBy: todoService.getDefaultSortBy()
 }
 
 export function todoReducer(state = initialState, action = {}) {
@@ -54,6 +58,13 @@ export function todoReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 filterBy: { ...state.filterBy, ...action.filterBy }
+            }
+
+        //* Sort
+        case SET_SORT_BY:
+            return {
+                ...state,
+                sortBy: { ...state.sortBy, ...action.sortBy }
             }
 
         default:

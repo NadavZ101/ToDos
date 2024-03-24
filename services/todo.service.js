@@ -12,10 +12,13 @@ export const todoService = {
     getTodoById,
     changeStatus,
     getDefaultFilterBy,
+    getDefaultSortBy,
 }
 
-function query(filterBy = {}) {
+function query(filterBy = {}, sortBy = {}) {
     console.log('service -> query -> filterBy', filterBy)
+    console.log('service -> query -> sortBy', sortBy)
+
     return storageService.query(STORAGE_KEY)
         .then(todos => {
             console.log('todos', todos)
@@ -39,6 +42,17 @@ function query(filterBy = {}) {
                 // console.log(todo.status);
                 // return todo.status === filterBy.status
             }
+            if (sortBy.type === 'title') {
+                console.log('sortBy Title')
+                //direction
+                todos.sort((todo1, todo2) => (sortBy.desc) * todo2.title.localeCompare(todo1.title))
+            }
+            if (sortBy.type === 'createAt') {
+                console.log('sortBy createAt')
+
+                todos.sort((todo1, todo2) => (sortBy.desc) * (todo2.createdAt - todo1.createdAt))
+            }
+            // if (sort)
 
             console.log('service - query -> todos', todos)
             return todos
@@ -106,6 +120,10 @@ function getEmptyTodo() {
 
 function getDefaultFilterBy() {
     return { status: '', txt: '' }
+}
+
+function getDefaultSortBy() {
+    return { type: '', desc: 1 }
 }
 
 _createTodos()

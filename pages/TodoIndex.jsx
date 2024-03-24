@@ -6,9 +6,10 @@ import { todoService } from "../services/todo.service.js"
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 
 import { TodoFilter } from "../cmp/TodoFilter.jsx"
+import { TodoSort } from "../cmp/TodoSort.jsx"
 import { TodoList } from "../cmp/TodoList.jsx"
 
-import { loadTodos, removeTodo, saveTodo, setFilterBy } from "../store/actions/todo.actions.js"
+import { loadTodos, removeTodo, saveTodo, setFilterBy, setSortBy } from "../store/actions/todo.actions.js"
 
 
 export function TodoApp() {
@@ -16,13 +17,14 @@ export function TodoApp() {
     const dispatch = useDispatch()
     const todos = useSelector(storeState => storeState.todoModule.todos)
     const filterBy = useSelector(storeState => storeState.todoModule.filterBy)
+    const sortBy = useSelector(storeState => storeState.todoModule.sortBy)
 
     useEffect(() => {
         loadTodos()
             .catch(err => {
                 showErrorMsg('Cannot load todos!')
             })
-    }, [filterBy])
+    }, [filterBy, sortBy])
 
     function onRemoveTodo(todoId) {
         console.log(todoId)
@@ -54,12 +56,11 @@ export function TodoApp() {
     function onSetFilter(filterBy) {
         console.log('index-filter', filterBy)
         setFilterBy(filterBy)
-        // .then(() => {
-        //     showSuccessMsg(`FilterBy updated`)
-        // })
-        // .catch(err => {
-        //     showErrorMsg('Cannot update FilterBy')
-        // })
+    }
+
+    function onSetSort(sortBy) {
+        console.log('index-sort', sortBy)
+        setSortBy(sortBy)
     }
 
 
@@ -67,6 +68,7 @@ export function TodoApp() {
         <h3>What Need To Be Done?</h3>
         <main>
             <TodoFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+            <TodoSort sortBy={sortBy} onSetSort={onSetSort} />
 
             <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onStatusTodo={onStatusTodo} />
 
