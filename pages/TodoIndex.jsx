@@ -14,11 +14,14 @@ import { loadTodos, removeTodo, saveTodo, setFilterBy } from "../store/actions/t
 export function TodoApp() {
 
     const dispatch = useDispatch()
-    const todos = useSelector(storeState => storeState.todos)
-    const filterBy = useSelector(storeState => storeState.filterBy)
+    const todos = useSelector(storeState => storeState.todoModule.todos)
+    const filterBy = useSelector(storeState => storeState.todoModule.filterBy)
 
     useEffect(() => {
         loadTodos(filterBy)
+            .catch(err => {
+                showErrorMsg('Cannot load todos!')
+            })
     }, [filterBy])
 
     function onRemoveTodo(todoId) {
@@ -47,35 +50,6 @@ export function TodoApp() {
                 showErrorMsg('Cannot update status todo')
             })
     }
-
-    // function onAddTodo() {
-    //     const newTodo = todoService.getEmptyTodo()
-    //     newTodo.title = prompt('New ToDo? ')
-
-    //     saveTodo(newTodo)
-    //         .then(() => {
-    //             showSuccessMsg(`Added ToDo ${newTodo.title}`)
-    //         })
-    //         .catch(err => {
-    //             showErrorMsg(`Cannot Add ToDo ${newTodo.title}`)
-    //         })
-    // }
-
-
-    // function onEditTodo(todo) {
-    //     console.log(todo)
-    //     const title = prompt('Change Todo? ')
-    //     const todoToSave = { ...todo, title }
-    //     console.log(todoToSave)
-
-    //     saveTodo(todoToSave)
-    //         .then(() => {
-    //             showSuccessMsg(`Todo updated`)
-    //         })
-    //         .catch(err => {
-    //             showErrorMsg('Cannot update todo')
-    //         })
-    // }
 
     function onFilter(filterBy) {
         console.log('index-filter', filterBy)

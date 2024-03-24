@@ -9,11 +9,11 @@ export function TodoPreview({ todo, onRemoveTodo, onStatusTodo, onEditTodo }) {
         onRemoveTodo(todo._id)
     }
 
-    function editTodo(ev) {
-        console.log(todo)
-        ev.preventDefault()
-        onEditTodo(todo)
-    }
+    // function editTodo(ev) {
+    //     console.log(todo)
+    //     ev.preventDefault()
+    //     onEditTodo(todo)
+    // }
 
     function handleStatusTodo(ev) {
         ev.preventDefault()
