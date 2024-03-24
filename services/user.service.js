@@ -59,6 +59,7 @@ function getEmptyCredentails() {
 function _setLoggedInUser(user) {
     const userToStore = { ...user }
     delete userToStore.password
+    console.log('userService ->_setLoggedInUser ', userToStore)
     //saving the loggedIn user in local storage (without sensetive details)
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToStore))
     return userToStore

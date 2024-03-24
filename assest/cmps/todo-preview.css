@@ -28,6 +28,19 @@
     min-width: 100px;
 }
 
+.todo-preview button {
+    background-color: #4c9baf;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.todo-preview button:hover {
+    background-color: #3495ae;
+}
+
 @media (max-width: 700px) {
     .todo-preview button {
         padding: 5px;

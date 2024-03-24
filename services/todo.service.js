@@ -11,6 +11,7 @@ export const todoService = {
     save,
     getTodoById,
     changeStatus,
+    getEmptyFilterBy,
 }
 
 function query() {
@@ -31,7 +32,7 @@ function save(todo) {
         console.log('service - id - after ', todo._id)
 
         todo.title = todo.title
-        todo.createBy = userService.getLoggedInUser()
+        todo.createBy = userService.getLoggedInUser().username
         console.log('service -> edit Todo: ', todo)
         return storageService.put(STORAGE_KEY, todo)
 
@@ -68,6 +69,10 @@ function getTodoById(todoId) {
 function getEmptyTodo() {
     return { _id: '', title: '', status: '', createdAt: '', }
     // Add CreatedBy
+}
+
+function getEmptyFilterBy() {
+    return { status: '' }
 }
 
 _createTodos()

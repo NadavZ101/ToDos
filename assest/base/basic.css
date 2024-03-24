@@ -18,6 +18,11 @@ button {
     cursor: pointer;
 }
 
+h3 {
+    display: flex;
+    justify-content: center;
+}
+
 .app {
     width: calc(100% - 10px);
     min-height: 100%;

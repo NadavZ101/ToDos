@@ -5,6 +5,7 @@ const { useEffect } = React
 import { todoService } from "../services/todo.service.js"
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 
+import { TodoFilter } from "../cmp/TodoFilter.jsx"
 import { TodoList } from "../cmp/TodoList.jsx"
 
 import { loadTodos, removeTodo, saveTodo } from "../store/actions/todo.actions.js"
@@ -74,13 +75,15 @@ export function TodoApp() {
             })
     }
 
-
+    function onFilter(filterBy) {
+        console.log('index-filter', filterBy)
+    }
 
 
     return <div>
         <h3>What Need To Be Done?</h3>
         <main>
-            {/* <TodoFilter /> */}
+            <TodoFilter todos={todos} onFilter={onFilter} />
 
             <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onAddTodo={onAddTodo} onStatusTodo={onStatusTodo} onEditTodo={onEditTodo} />
         </main>
