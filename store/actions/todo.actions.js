@@ -1,10 +1,10 @@
 import { todoService } from "../../services/todo.service.js"
-import { store, SET_TODOS, REMOVE_TODO, ADD_TODO, LOAD_TODO, UPDATE_TODO } from "../store.js"
+import { store, SET_TODOS, REMOVE_TODO, ADD_TODO, LOAD_TODO, UPDATE_TODO, FILTER_BY } from "../store.js"
 
 
 
-export function loadTodos() {
-    return todoService.query()
+export function loadTodos(filterBy) {
+    return todoService.query(filterBy)
         .then(todos => {
             console.log('Todos actions -> Load todos ', todos)
             store.dispatch({ type: SET_TODOS, todos })
@@ -26,18 +26,6 @@ export function removeTodo(todoId) {
             throw err
         })
 }
-
-// export function addTodo(todo) {
-//     return todoService.save(todo)
-//         .then(() => {
-//             console.log('Todos actions -> add todo')
-//             store.dispatch({ type: ADD_TODO, todo })
-//         })
-//         .catch(err => {
-//             console.log('Todos actions -> Cannot add todo ')
-//             throw err
-//         })
-// }
 
 export function saveTodo(todo) {
     console.log('Todos actions -> todo ', todo)
@@ -64,6 +52,11 @@ export function loadTodo(todoId) {
             console.log('Todos actions -> load single todo ')
             throw err
         })
+}
+
+export function setFilterBy(filter) {
+    console.log('Todos actions -> filter', filter)
+    store.dispatch({ type: FILTER_BY, filterBy: filter })
 }
 
 store.subscribe(() => {

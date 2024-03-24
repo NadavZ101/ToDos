@@ -14,9 +14,26 @@ export const todoService = {
     getEmptyFilterBy,
 }
 
-function query() {
+function query(filterBy) {
+    console.log(filterBy)
     return storageService.query(STORAGE_KEY)
+        .then(todos => {
+            if (filterBy.status === 'active') {
+                const todos = todos.filter(todo => todo.status === filterBy.status)
+            }
+            else if (filterBy.status === 'complete') {
+                const todos = todos.filter(todo => todo.status === filterBy.status)
+            }
+            console.log('service - query -> todos', todos)
+            return todos
+        })
 }
+
+// Without Filter
+// function query() {
+//     return storageService.query(STORAGE_KEY)
+
+// }
 
 function remove(todoId) {
     console.log('service ', todoId)

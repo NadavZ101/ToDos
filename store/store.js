@@ -12,10 +12,14 @@ export const UPDATE_TODO = 'UPDATE_TODO'
 //* User
 export const SET_USER = 'SET_USER'
 
+//* Filter
+export const FILTER_BY = 'FILTER_BY'
+
 const initialState = {
     todos: [],
     todo: {},
-    loggedInUser: userService.getLoggedInUser()
+    loggedInUser: userService.getLoggedInUser(),
+    filterBy: { status: 'all' }
 }
 export function appReducer(state = initialState, action = {}) {
 
@@ -54,6 +58,13 @@ export function appReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 loggedInUser: action.user
+            }
+
+        //* Filter
+        case FILTER_BY:
+            return {
+                ...state,
+                filterBy: action.filterBy.status
             }
 
         default:

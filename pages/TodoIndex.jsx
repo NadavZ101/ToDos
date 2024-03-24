@@ -8,17 +8,18 @@ import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { TodoFilter } from "../cmp/TodoFilter.jsx"
 import { TodoList } from "../cmp/TodoList.jsx"
 
-import { loadTodos, removeTodo, saveTodo } from "../store/actions/todo.actions.js"
+import { loadTodos, removeTodo, saveTodo, setFilterBy } from "../store/actions/todo.actions.js"
 
 
 export function TodoApp() {
 
     const dispatch = useDispatch()
     const todos = useSelector(storeState => storeState.todos)
+    const filterBy = useSelector(storeState => storeState.filterBy)
 
     useEffect(() => {
-        loadTodos()
-    }, [])
+        loadTodos(filterBy)
+    }, [filterBy])
 
     function onRemoveTodo(todoId) {
         console.log(todoId)
@@ -77,6 +78,13 @@ export function TodoApp() {
 
     function onFilter(filterBy) {
         console.log('index-filter', filterBy)
+        setFilterBy(filterBy)
+        // .then(() => {
+        //     showSuccessMsg(`FilterBy updated`)
+        // })
+        // .catch(err => {
+        //     showErrorMsg('Cannot update FilterBy')
+        // })
     }
 
 
