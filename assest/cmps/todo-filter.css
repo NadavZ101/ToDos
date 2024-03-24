@@ -30,6 +30,6 @@ input,
     color: #333;
 }
 
-.filter-list input#pageIdx {
-    width: 20px;
+.filter-form input#pageIdx {
+    width: 42px;
 }

@@ -35,13 +35,15 @@ export function AppHeader() {
                 <h1>ToDo's ✅</h1>
                 <nav className="app-nav">
                     <NavLink to="/">Home</NavLink>
+                    <span> | </span>
                     <NavLink to="/todo">ToDo's</NavLink>
+                    <span> | </span>
                     <NavLink to="/user">User Profile</NavLink>
                 </nav>
             </section>
 
             {user ? (
-                <section>
+                <section className="header-user-details">
                     <span to={`/user/${user.username}`}>Hello {user.fullname}</span>
                     <div className="progress-bar-container">
                         <div className="progress-bar" value={completionPrecent()} max="100" style={{ width: `${completionPrecent()}%` }}>

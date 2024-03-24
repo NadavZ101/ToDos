@@ -3,6 +3,11 @@
     padding-block: 1em;
 }
 
+h1 {
+    font-size: 30px;
+    margin: 0 0 10px 0;
+}
+
 .app-nav {
     display: flex;
     justify-content: center;
@@ -12,6 +17,17 @@
 
 .header-container span {
     text-align: center;
+}
+
+.header-user-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-user-details span {
+    margin-top: 10px;
 }
 
 .progress-bar-container {
@@ -24,16 +40,14 @@
 }
 
 .progress-bar {
-    height: 20px;
+    height: 30px;
     background-color: #4c8caf;
     border-radius: 8px;
     text-align: center;
     color: white;
     display: flex;
     align-items: center;
-    /* Center the percentage text vertically */
     justify-content: center;
-    /* Center the percentage text horizontally */
 }
 
 @media(max-width: 720px) {
