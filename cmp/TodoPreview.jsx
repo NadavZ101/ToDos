@@ -32,9 +32,13 @@ export function TodoPreview({ todo, onRemoveTodo, onStatusTodo, onEditTodo }) {
         </button>
         <p className={getStatusClass()}>{todo.title}</p>
         < button className="btn" onClick={handleRemoveClick}>🗑️</button>
-        < button className="btn" onClick={editTodo}>Edit</button>
+        {/* < button className="btn" onClick={editTodo}>Edit</button> */}
+        {/* < button className="btn" onClick={editTodo}>Edit</button> */}
         {/* <Link className="btn" to={`/todo/${todo._id}`}>Details</Link> */}
-        {/* <Link className="btn" to={`/todo/edit/${todo._id}`} todo={todo}>Edit</Link> */}
+
+        <button className="edit-btn">
+            <Link to={`/todo/edit/${todo._id}`}>Edit</Link>
+        </button>
 
     </section>
 }

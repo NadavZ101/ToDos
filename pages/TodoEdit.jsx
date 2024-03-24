@@ -2,36 +2,34 @@ const { useParams, useNavigate } = ReactRouterDOM
 const { useSelector } = ReactRedux
 const { useEffect, useState } = React
 
-import { loadTodo } from "../store/actions/todo.actions.js"
-import { TodoDetails } from "./TodoDetails.jsx"
 
 import { todoService } from "../services/todo.service.js"
-import { utilService } from "../services/util.service"
+
+import { saveTodo } from "../store/actions/todo.actions.js"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 export function TodoEdit() {
     // console.log(todo)
 
     const [todoToEdit, setTodoToEdit] = useState(todoService.getEmptyTodo())
+    // from local state - no need for global
+
     const { todoId } = useParams()
-    console.log('TodoEdit', todoId)
     const navigate = useNavigate()
+
     // const todo = useSelector(storeState => storeState.todo)
     // console.log(todo)
 
     useEffect(() => {
-        if (!todoId) return
-        loadTodo()
+        if (todoId) loadTodo()
     }, [])
 
     function loadTodo() {
         todoService.getTodoById(todoId)
-            .then((todo) => {
-                console.log(todo)
-                setTodoToEdit(todo)
-            })
+            .then((todo) => setTodoToEdit(todo))
             .catch(err => {
-                console.log("Cannot load Todo")
-                throw err
+                console.log("Cannot load Todo", err)
+                navigate('/todo')
             })
     }
 
@@ -44,31 +42,30 @@ export function TodoEdit() {
 
     function onSaveTodo(ev) {
         ev.preventDefault()
-        todoService.save(todoToEdit)
-            .then(() => navigate('/todo'))
+        saveTodo(todoToEdit)
+            .then(() => {
+                showSuccessMsg('Successfully edit todo')
+                navigate('/todo')
+            })
             .catch(err => {
-                console.log("Cannot Update Todo")
-                throw err
+                showErrorMsg('Cannot edit todo')
             })
     }
 
+
     console.log(todoToEdit)
 
-
-    // const newTitle = prompt('Change ToDo? ')
-
-    // const { title } = todoToEdit
     return <section>
         <h3>Edit The ToDo</h3>
         <form onSubmit={onSaveTodo}>
-            <label htmlFor="title">Title</label>
+            <label htmlFor="title">ToDo</label>
             <input
                 type="text"
                 name="title"
                 value={todoToEdit.title}
                 onChange={handleInput}
             />
-            <button className="btn">Change</button>
+            <button className="btn">{todoToEdit._id ? 'Save' : 'Add'}</button>
         </form>
     </section>
 }

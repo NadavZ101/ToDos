@@ -32,19 +32,6 @@ export function TodoApp() {
             })
     }
 
-    function onAddTodo() {
-        const newTodo = todoService.getEmptyTodo()
-        newTodo.title = prompt('New ToDo? ')
-
-        saveTodo(newTodo)
-            .then(() => {
-                showSuccessMsg(`Added ToDo ${newTodo.title}`)
-            })
-            .catch(err => {
-                showErrorMsg(`Cannot Add ToDo ${newTodo.title}`)
-            })
-    }
-
     function onStatusTodo(todo) {
         console.log('onStatusTodo', todo)
         const status = todo.status === 'active' ? 'complete' : 'active'
@@ -61,20 +48,34 @@ export function TodoApp() {
             })
     }
 
-    function onEditTodo(todo) {
-        console.log(todo)
-        const title = prompt('Change Todo? ')
-        const todoToSave = { ...todo, title }
-        console.log(todoToSave)
+    // function onAddTodo() {
+    //     const newTodo = todoService.getEmptyTodo()
+    //     newTodo.title = prompt('New ToDo? ')
 
-        saveTodo(todoToSave)
-            .then(() => {
-                showSuccessMsg(`Todo updated`)
-            })
-            .catch(err => {
-                showErrorMsg('Cannot update todo')
-            })
-    }
+    //     saveTodo(newTodo)
+    //         .then(() => {
+    //             showSuccessMsg(`Added ToDo ${newTodo.title}`)
+    //         })
+    //         .catch(err => {
+    //             showErrorMsg(`Cannot Add ToDo ${newTodo.title}`)
+    //         })
+    // }
+
+
+    // function onEditTodo(todo) {
+    //     console.log(todo)
+    //     const title = prompt('Change Todo? ')
+    //     const todoToSave = { ...todo, title }
+    //     console.log(todoToSave)
+
+    //     saveTodo(todoToSave)
+    //         .then(() => {
+    //             showSuccessMsg(`Todo updated`)
+    //         })
+    //         .catch(err => {
+    //             showErrorMsg('Cannot update todo')
+    //         })
+    // }
 
     function onFilter(filterBy) {
         console.log('index-filter', filterBy)
@@ -93,7 +94,9 @@ export function TodoApp() {
         <main>
             <TodoFilter todos={todos} onFilter={onFilter} />
 
-            <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onAddTodo={onAddTodo} onStatusTodo={onStatusTodo} onEditTodo={onEditTodo} />
+            <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onStatusTodo={onStatusTodo} />
+
+            {/* <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onAddTodo={onAddTodo} onStatusTodo={onStatusTodo} onEditTodo={onEditTodo} /> */}
         </main>
     </div>
 }

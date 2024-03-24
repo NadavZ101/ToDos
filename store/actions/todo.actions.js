@@ -42,17 +42,17 @@ export function saveTodo(todo) {
         })
 }
 
-export function loadTodo(todoId) {
-    return todoService.getTodoById(todoId)
-        .then(todo => {
-            console.log('Todos actions -> load single todo, ', todo.title)
-            store.dispatch({ type: LOAD_TODO, todo })
-        })
-        .catch(err => {
-            console.log('Todos actions -> load single todo ')
-            throw err
-        })
-}
+// export function loadTodo(todoId) {
+//     return todoService.getTodoById(todoId)
+//         .then(todo => {
+//             console.log('Todos actions -> load single todo, ', todo.title)
+//             store.dispatch({ type: LOAD_TODO, todo })
+//         })
+//         .catch(err => {
+//             console.log('Todos actions -> load single todo ')
+//             throw err
+//         })
+// }
 
 export function setFilterBy(filter) {
     console.log('Todos actions -> filter', filter)

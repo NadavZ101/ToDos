@@ -6,8 +6,8 @@ const { createStore, compose } = Redux
 export const SET_TODOS = 'SET_TODOS'
 export const REMOVE_TODO = 'REMOVE_TODO'
 export const ADD_TODO = 'ADD_TODO'
-export const LOAD_TODO = 'LOAD_TODO'
 export const UPDATE_TODO = 'UPDATE_TODO'
+// export const LOAD_TODO = 'LOAD_TODO'  -- changed Details to local state
 
 //* User
 export const SET_USER = 'SET_USER'
@@ -40,13 +40,14 @@ export function appReducer(state = initialState, action = {}) {
                 todos: [...state.todos, action.todo]
             }
 
-        case LOAD_TODO:
-            return {
-                ...state,
-                todo: action.todo
-                // todos: state.todos.filter(todo => todo._id === action.todoId)
-                // tried to show the todo details with todos state instead of a single todo - didnt work...
-            }
+        // case LOAD_TODO:
+        //     return {
+        //         ...state,
+        //         todo: action.todo
+        //         // todos: state.todos.filter(todo => todo._id === action.todoId)
+        //         // tried to show the todo details with todos state instead of a single todo - didnt work...
+        //     }
+
         case UPDATE_TODO:
             return {
                 ...state,

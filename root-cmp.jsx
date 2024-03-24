@@ -25,7 +25,8 @@ export class App extends React.Component {
                                 <Route element={<HomePage />} path="/"></Route>
                                 <Route element={<TodoApp />} path="/todo"></Route>
                                 <Route element={<TodoDetails />} path="/todo/:todoId"></Route>
-                                {/* <Route element={<TodoEdit />} path="/todo/edit/:todoId"></Route> */}
+                                <Route element={<TodoEdit />} path="/todo/edit"></Route>
+                                <Route element={<TodoEdit />} path="/todo/edit/:todoId"></Route>
                             </Routes>
                         </main>
                     </section>

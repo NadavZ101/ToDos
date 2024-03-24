@@ -5,7 +5,7 @@
 }
 
 .todo-list a {
-    width: 100%;
+    width: 4%;
     text-decoration: none;
     color: black;
 }
@@ -55,4 +55,13 @@
 
 .add-btn:hover {
     background-color: #3495ae;
+}
+
+.todo-list .todo-preview .edit-btn {
+    margin-left: 5px;
+    color: white;
+}
+
+.todo-list .todo-preview .edit-btn a {
+    color: white;
 }
