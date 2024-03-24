@@ -13,3 +13,6 @@
 @import 'cmps/todo-filter.css';
 @import 'cmps/todo-details.css';
 @import 'cmps/todo-sort.css';
+
+/* Pages */
+@import 'pages/user-profile.css';

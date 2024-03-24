@@ -1,0 +1,12 @@
+.user-profile-container form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-profile-container form input#bgColor,
+.user-profile-container form input#color {
+    padding: 0;
+    width: 70px;
+}

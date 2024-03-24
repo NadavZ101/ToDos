@@ -3,6 +3,7 @@ const { Route, Routes } = ReactRouterDOM
 const { Provider } = ReactRedux
 
 import { HomePage } from './pages/HomePage.jsx'
+import { UserProfile } from './pages/UserProfile.jsx'
 import { TodoApp } from './pages/TodoIndex.jsx'
 import { TodoDetails } from './pages/TodoDetails.jsx'
 import { TodoEdit } from './pages/TodoEdit.jsx'
@@ -23,6 +24,7 @@ export class App extends React.Component {
                         <main className='main-layout'>
                             <Routes>
                                 <Route element={<HomePage />} path="/"></Route>
+                                <Route element={<UserProfile />} path="/user" />
                                 <Route element={<TodoApp />} path="/todo"></Route>
                                 <Route element={<TodoDetails />} path="/todo/:todoId"></Route>
                                 <Route element={<TodoEdit />} path="/todo/edit"></Route>

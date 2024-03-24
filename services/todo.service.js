@@ -21,49 +21,38 @@ function query(filterBy = {}, sortBy = {}) {
 
     return storageService.query(STORAGE_KEY)
         .then(todos => {
-            console.log('todos', todos)
 
             if (filterBy.txt) {
                 console.log('By Txt')
                 const regExp = new RegExp(filterBy.txt, 'i')
                 todos = todos.filter(todo => regExp.test(todo.title))
-                console.log('todos by txt -> ', todos)
             }
             if (filterBy.status === 'active') {
-                console.log('Status Active')
-
                 todos = todos.filter(todo => todo.status === filterBy.status)
             }
+
             if (filterBy.status === 'complete') {
-                console.log('Status Complete')
-                console.log('filterBy.status = ', filterBy.status)
-
                 todos = todos.filter(todo => todo.status === filterBy.status)
-                // console.log(todo.status);
-                // return todo.status === filterBy.status
             }
+
             if (sortBy.type === 'title') {
-                console.log('sortBy Title')
-                //direction
+                // (sortBy.desc) ---> direction
                 todos.sort((todo1, todo2) => (sortBy.desc) * todo2.title.localeCompare(todo1.title))
             }
+
             if (sortBy.type === 'createAt') {
-                console.log('sortBy createAt')
 
                 todos.sort((todo1, todo2) => (sortBy.desc) * (todo2.createdAt - todo1.createdAt))
             }
-            // if (sort)
 
-            console.log('service - query -> todos', todos)
+            if (sortBy.type === 'status') {
+                todos.sort((todo1, todo2) => (sortBy.desc) * todo2.status.localeCompare(todo1.status))
+            }
+
             return todos
         })
 }
 
-// Without Filter
-// function query() {
-//     return storageService.query(STORAGE_KEY)
-
-// }
 
 function remove(todoId) {
     console.log('service ', todoId)

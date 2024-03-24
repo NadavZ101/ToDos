@@ -5,8 +5,13 @@
 
 .app-nav {
     display: flex;
+    justify-content: center;
     gap: 1.2em;
     margin-bottom: 0.5em;
+}
+
+.header-container span {
+    text-align: center;
 }
 
 .progress-bar-container {

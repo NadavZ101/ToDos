@@ -9,6 +9,9 @@ export const userService = {
     signup,
     logout,
     getLoggedInUser,
+    getUserById,
+    getDefaultPrefs,
+    updateUserPrefs,
 }
 
 function login({ username, password }) {
@@ -30,6 +33,7 @@ function signup({ username, password, fullname }) {
         password,
         fullname,
         balance: 0,
+        pref: getDefaultPrefs(),
         activities: [{ txt: '', at: '' }]
     }
 
@@ -48,12 +52,35 @@ function getLoggedInUser() {
     return user
 }
 
+function getUserById(userId) {
+    return storageService.get(STORAGE_KEY, userId)
+}
+
 function getEmptyCredentails() {
     return {
         username: '',
         password: '',
         fullname: '',
     }
+}
+
+function getDefaultPrefs() {
+    return { color: '#eeeeee', bgColor: "#191919" }
+}
+
+function updateUserPrefs(userToUpdate) {
+    const loggedInUserId = getLoggedInUser()._id
+    return getUserById(loggedInUserId)
+        .then(user => {
+            user.fullname = userToUpdate.fullname
+            user.pref.color = userToUpdate.color
+            user.pref.bgColor = userToUpdate.bgColor
+            return storageService.put(STORAGE_KEY, user)
+                .then((savedUser) => {
+                    _setLoggedInUser(savedUser)
+                    return savedUser
+                })
+        })
 }
 
 function _setLoggedInUser(user) {
@@ -71,5 +98,6 @@ const userModel =
     password: 'muki1',
     fullname: 'Muki Ja',
     balance: 10000,
+    pref: getDefaultPrefs(),
     activities: [{ txt: 'Added a Todo', at: 1523873242735 }]
 }

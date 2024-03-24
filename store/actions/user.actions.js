@@ -35,6 +35,17 @@ export function logout(credentials) {
         })
         .catch(err => {
             console.log('user actions -> Cannot logout', err)
-            // throw err
+            throw err
+        })
+}
+
+export function updateUser(userToUpdate) {
+    return userService.updateUserPrefs(userToUpdate)
+        .then((updatedUser) => {
+            store.dispatch({ type: SET_USER, user: updatedUser })
+        })
+        .catch(err => {
+            console.log('user actions -> Cannot update user prefs', err)
+            throw err
         })
 }
