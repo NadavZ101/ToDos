@@ -18,7 +18,7 @@ export function TodoApp() {
     const filterBy = useSelector(storeState => storeState.todoModule.filterBy)
 
     useEffect(() => {
-        loadTodos(filterBy)
+        loadTodos()
             .catch(err => {
                 showErrorMsg('Cannot load todos!')
             })
@@ -51,7 +51,7 @@ export function TodoApp() {
             })
     }
 
-    function onFilter(filterBy) {
+    function onSetFilter(filterBy) {
         console.log('index-filter', filterBy)
         setFilterBy(filterBy)
         // .then(() => {
@@ -66,7 +66,7 @@ export function TodoApp() {
     return <div>
         <h3>What Need To Be Done?</h3>
         <main>
-            <TodoFilter todos={todos} onFilter={onFilter} />
+            <TodoFilter filterBy={filterBy} onSetFilter={onSetFilter} />
 
             <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onStatusTodo={onStatusTodo} />
 

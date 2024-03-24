@@ -11,19 +11,35 @@ export const todoService = {
     save,
     getTodoById,
     changeStatus,
-    getEmptyFilterBy,
+    getDefaultFilterBy,
 }
 
-function query(filterBy) {
-    console.log(filterBy)
+function query(filterBy = {}) {
+    console.log('service -> query -> filterBy', filterBy)
     return storageService.query(STORAGE_KEY)
         .then(todos => {
+            console.log('todos', todos)
+
+            if (filterBy.txt) {
+                console.log('By Txt')
+                const regExp = new RegExp(filterBy.txt, 'i')
+                todos = todos.filter(todo => regExp.test(todo.title))
+                console.log('todos by txt -> ', todos)
+            }
             if (filterBy.status === 'active') {
-                const todos = todos.filter(todo => todo.status === filterBy.status)
+                console.log('Status Active')
+
+                todos = todos.filter(todo => todo.status === filterBy.status)
             }
-            else if (filterBy.status === 'complete') {
-                const todos = todos.filter(todo => todo.status === filterBy.status)
+            if (filterBy.status === 'complete') {
+                console.log('Status Complete')
+                console.log('filterBy.status = ', filterBy.status)
+
+                todos = todos.filter(todo => todo.status === filterBy.status)
+                // console.log(todo.status);
+                // return todo.status === filterBy.status
             }
+
             console.log('service - query -> todos', todos)
             return todos
         })
@@ -88,8 +104,8 @@ function getEmptyTodo() {
     // Add CreatedBy
 }
 
-function getEmptyFilterBy() {
-    return { status: '' }
+function getDefaultFilterBy() {
+    return { status: '', txt: '' }
 }
 
 _createTodos()

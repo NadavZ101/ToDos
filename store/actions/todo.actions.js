@@ -1,11 +1,12 @@
 import { todoService } from "../../services/todo.service.js"
 
-import { SET_TODOS, REMOVE_TODO, ADD_TODO, LOAD_TODO, UPDATE_TODO, FILTER_BY } from "../reducers/todo.reducer.js"
+import { SET_TODOS, REMOVE_TODO, ADD_TODO, LOAD_TODO, UPDATE_TODO, SET_FILTER_BY } from "../reducers/todo.reducer.js"
 
 import { store } from "../store.js"
 
 
-export function loadTodos(filterBy) {
+export function loadTodos() {
+    const filterBy = store.getState().todoModule.filterBy
     return todoService.query(filterBy)
         .then(todos => {
             console.log('Todos actions -> Load todos ', todos)
@@ -56,9 +57,9 @@ export function saveTodo(todo) {
 //         })
 // }
 
-export function setFilterBy(filter) {
-    console.log('Todos actions -> filter', filter)
-    store.dispatch({ type: FILTER_BY, filterBy: filter })
+export function setFilterBy(filterBy) {
+    console.log('Todos actions -> filter', filterBy)
+    store.dispatch({ type: SET_FILTER_BY, filterBy })
 }
 
 store.subscribe(() => {

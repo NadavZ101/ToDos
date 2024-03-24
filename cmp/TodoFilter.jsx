@@ -1,13 +1,17 @@
-const { useState } = React
+const { useState, useEffect, useRef } = React
 
 import { todoService } from "../services/todo.service.js"
+import { utilService } from "../services/util.service.js"
 
-export function TodoFilter({ todos, onFilter }) {
-    console.log(todos)
-
-    const [filterByToEdit, setFilterByToEdit] = useState(todoService.getEmptyFilterBy())
-
+export function TodoFilter({ filterBy, onSetFilter }) {
+    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+    onSetFilter = useRef(utilService.debounce(onSetFilter, 300))
     console.log(filterByToEdit)
+
+    useEffect(() => {
+        onSetFilter.current(filterByToEdit)
+        // current -> from debounce
+    }, [filterByToEdit])
 
     function handleSelect({ target }) {
         const field = target.name
@@ -18,14 +22,23 @@ export function TodoFilter({ todos, onFilter }) {
     function handleSubmit(ev) {
         ev.preventDefault()
         console.log('HANDELLLLL')
-        onFilter(filterByToEdit)
+        onSetFilter(filterByToEdit)
     }
 
+    // onSubmit={handleSubmit}
 
-    const { status } = filterByToEdit
+    // const { status } = filterByToEdit
+    return <form className="filter-form" >
+        <input
+            type="text"
+            name="txt"
+            id="txt"
+            value={filterByToEdit.txt}
+            onChange={handleSelect}
+            placeholder="Search Text"
+        />
 
-    return <form className="filter-form" onSubmit={handleSubmit}>
-        <select className="filter-list" name="status" value={status} onChange={handleSelect}>
+        <select className="filter-list" name="status" value={filterByToEdit.status} onChange={handleSelect}>
             <option value="all">All</option>
             <option value="active">Active</option>
             <option value="complete">Complete</option>

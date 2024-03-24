@@ -1,3 +1,5 @@
+import { todoService } from "../../services/todo.service.js"
+
 //* Todo's
 export const SET_TODOS = 'SET_TODOS'
 export const REMOVE_TODO = 'REMOVE_TODO'
@@ -6,12 +8,12 @@ export const UPDATE_TODO = 'UPDATE_TODO'
 // export const LOAD_TODO = 'LOAD_TODO'  -- changed Details to local state
 
 //* Filter
-export const FILTER_BY = 'FILTER_BY'
+export const SET_FILTER_BY = 'SET_FILTER_BY'
 
 const initialState = {
     todos: [],
     // todo: {},
-    filterBy: { status: 'all' }
+    filterBy: todoService.getDefaultFilterBy()
 }
 
 export function todoReducer(state = initialState, action = {}) {
@@ -48,10 +50,10 @@ export function todoReducer(state = initialState, action = {}) {
             }
 
         //* Filter
-        case FILTER_BY:
+        case SET_FILTER_BY:
             return {
                 ...state,
-                filterBy: action.filterBy.status
+                filterBy: { ...state.filterBy, ...action.filterBy }
             }
 
         default:
